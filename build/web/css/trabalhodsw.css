@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/03/2016, 21:35:28
+    Author     @lairton
+*/
+
+.navbar-default{
+	background: #003366;
+	color: white;
+
+}
+
+.navbar-default .navbar-brand{
+	color: white;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus{
+	color: #18BC9C;
+	background: transparent;
+}
+.navbar-default .navbar-nav > li > a{
+	color: white;
+}
+
+.navbar-default .navbar-nav > .active > a{
+	color: white;
+	background: #00407F;
+}
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus{
+	color: #18BC9C;
+	background: #00407F;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus{
+	color: #18BC9C;
+	background: transparent;;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus{
+	color: #18BC9C;
+	background: transparent;;
+}
+
+.btn .btn-primary{
+	color: white;
+	background: red;
+}
+body{
+	background: #DFE5E5;
+}
