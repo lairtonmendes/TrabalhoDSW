@@ -60,14 +60,11 @@ and open the template in the editor.
             <div class="panel panel-default ">
                 <div class="panel-heading">Países cadastrado</div>
                 <div class="panel-body">
-                    <table class="table table-hover" style="width: 700px;">
+                    <table class="table table-hover" style="width: 400px;">
                         <thead>
                             <tr>
                                 <th style="width:  30px;">ID</th>
                                 <th style="width: 300px;">País</th>
-                                <th style="width:  30px;">Ouro</th>
-                                <th style="width:  30px;">Prata</th>
-                                <th style="width:  30px;">Bronze</th>
                                 <th style="width:  30px;"></th>
                                 <th style="width:  30px;"></th>
                             </tr>
@@ -78,35 +75,19 @@ and open the template in the editor.
                                 List<Pais> paises = dao.getLista();
                                 for (Pais p : paises) {
                             %>
-                            
+
                             <tr>
-                                <td><%= p.getId() %></td>
-                                <td><%= p.getNome() %></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= p.getId()%></td>
+                                <td><%= p.getNome()%></td>
+
                                 <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                <td><button class="btn btn-danger btn-xs">Excluir</button></td>
+                                <form action="removePais?id=<%= p.getId()%>" method="post">
+                            
+                                    <td><button class="btn btn-danger btn-xs">Excluir</button></td>
+                                </form>
                             </tr>
                             <%}%>
-                            <tr>
-                                <td>2</td>
-                                <td>Brasil</td>
-                                <td>8</td>
-                                <td>6</td>
-                                <td>4</td>
-                                <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                <td><button class="btn btn-danger btn-xs">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Canada</td>
-                                <td>4</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                <td><button class="btn btn-danger btn-xs">Excluir</button></td>
-                            </tr>
+
                         </tbody>
 
                     </table>

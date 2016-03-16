@@ -20,7 +20,7 @@ public class PaisDAO {
 
     private Connection connection;
 
-    public PaisDAO() {
+    public PaisDAO() throws ClassNotFoundException {
         this.connection = new ConnectionFactory().getConnection();
     }
 
@@ -85,6 +85,17 @@ public class PaisDAO {
             PreparedStatement stmt = connection
                     .prepareStatement("delete from country where id=?");
             stmt.setInt(1, p.getId());
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void remove(int i) {
+        try {
+            PreparedStatement stmt = connection
+                    .prepareStatement("delete from country where id=?");
+            stmt.setInt(1, i);
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {
