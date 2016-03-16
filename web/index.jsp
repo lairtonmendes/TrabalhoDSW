@@ -31,8 +31,8 @@ and open the template in the editor.
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
                         <li><a href="paises.jsp">Paises</a></li>
-                        <li><a href="modalidades.jsp">Modalidades</a></li>
-                        <li><a href="medalhas.jsp">Medalhas</a></li>
+                        <li><a href="modalidade.jsp">Modalidades</a></li>
+                        <li><a href="medalha.jsp">Medalhas</a></li>
 
                     </ul>
 

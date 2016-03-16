@@ -1,3 +1,6 @@
+<%@page import="br.estacio.jdbc.PaisDAO"%>
+<%@page import="DOMAIN.Pais"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -29,10 +32,10 @@ and open the template in the editor.
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class=""><a href="#">Inicio </a></li>
+                        <li class=""><a href="index.jsp">Inicio </a></li>
                         <li class="active"><a href="paises.jsp">Paises</a></li>
-                        <li><a href="modalidades.jsp">Modalidades</a></li>
-                        <li><a href="medalhas.jsp">Medalhas</a></li>
+                        <li><a href="modalidade.jsp">Modalidades</a></li>
+                        <li><a href="medalha.jsp">Medalhas</a></li>
 
                     </ul>
 
@@ -43,10 +46,10 @@ and open the template in the editor.
             <div class="panel panel-default ">
                 <div class="panel-heading">Cadastro de País</div>
                 <div class="panel-body">
-                    <form class="form-inline">
+                    <form class="form-inline" action="adicionaPaises">
                         <div class="form-group">
-                          <label for="nome">Nome</label>
-                          <input type="text" class="form-control" id="pais" placeholder="Nome do País">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="pais" placeholder="Nome do País" name="nome">
                         </div>
                         <button type="submit" class="btn btn-primary">Criar</button>
                     </form>
@@ -60,37 +63,52 @@ and open the template in the editor.
                     <table class="table table-hover" style="width: 700px;">
                         <thead>
                             <tr>
-                                <th style="width:  30px;">Rank</th>
+                                <th style="width:  30px;">ID</th>
                                 <th style="width: 300px;">País</th>
                                 <th style="width:  30px;">Ouro</th>
                                 <th style="width:  30px;">Prata</th>
                                 <th style="width:  30px;">Bronze</th>
+                                <th style="width:  30px;"></th>
+                                <th style="width:  30px;"></th>
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                                PaisDAO dao = new PaisDAO();
+                                List<Pais> paises = dao.getLista();
+                                for (Pais p : paises) {
+                            %>
+                            
                             <tr>
-                                <th>1</th>
-                                <th>Estados Unidos</th>
-                                <th>10</th>
-                                <th>8</th>
-                                <th>6</th>
+                                <td><%= p.getId() %></td>
+                                <td><%= p.getNome() %></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                <td><button class="btn btn-danger btn-xs">Excluir</button></td>
+                            </tr>
+                            <%}%>
+                            <tr>
+                                <td>2</td>
+                                <td>Brasil</td>
+                                <td>8</td>
+                                <td>6</td>
+                                <td>4</td>
+                                <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                <td><button class="btn btn-danger btn-xs">Excluir</button></td>
                             </tr>
                             <tr>
-                                <th>2</th>
-                                <th>Brasil</th>
-                                <th>8</th>
-                                <th>6</th>
-                                <th>4</th>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <th>Canada</th>
-                                <th>4</th>
-                                <th>2</th>
-                                <th>1</th>
+                                <td>3</td>
+                                <td>Canada</td>
+                                <td>4</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                <td><button class="btn btn-danger btn-xs">Excluir</button></td>
                             </tr>
                         </tbody>
-                            
+
                     </table>
                 </div>
             </div>
