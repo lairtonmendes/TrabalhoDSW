@@ -5,7 +5,7 @@
  */
 package br.estacio.servlet;
 
-import DOMAIN.Pais;
+import br.estacio.domain.Pais;
 import br.estacio.jdbc.PaisDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

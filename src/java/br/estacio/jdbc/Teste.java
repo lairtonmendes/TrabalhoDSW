@@ -6,7 +6,7 @@
 
 package br.estacio.jdbc;
 
-import DOMAIN.Pais;
+import br.estacio.domain.Pais;
 
 /**
  * 

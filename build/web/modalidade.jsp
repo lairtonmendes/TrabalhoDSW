@@ -1,8 +1,16 @@
+<%@page import="br.estacio.domain.Pais"%>
+<%@page import="br.estacio.jdbc.PaisDAO"%>
+<%@page import="br.estacio.domain.Modalidade"%>
+<%@page import="java.util.List"%>
+<%@page import="br.estacio.jdbc.ModalidadeDAO"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
+<% PaisDAO dao = new PaisDAO(); 
+   ModalidadeDAO mdao = new ModalidadeDAO();
+%>
 -->
 <html>
     <head>
@@ -43,42 +51,42 @@ and open the template in the editor.
             <div class="panel panel-default ">
                 <div class="panel-heading">Cadastro de Modalidade</div>
                 <div class="panel-body">
-                    <form class="form-inline">
+                    <form class="form-inline" action="adicionaModalidade">
                         <div class="form-group">
                             <label for="nome">Modalidade</label>
-                            <input type="text" class="form-control" id="pais" placeholder="Modalidade Esportiva">
+                            <input type="text" class="form-control" name="nome"placeholder="Modalidade Esportiva">
                         </div>
                         <div class="form-group">
                             <label for="nome">Ouro</label>
-                            <select class="form-control">
-                                <option>Selecione</option>
-                                <option>Brasil</option>
-                                <option>Estados Unidos</option>
-                                <option>Canada</option>
-                                <option>Mexico</option>
-                                <option>Argentina</option>
+                            <select class="form-control" name="ouro">
+                                 <% List<Pais> paises = dao.getLista();
+                                for (Pais p : paises) {
+                                %>
+                                
+                                <option value="<%= p.getId() %>"> <%= p.getNome() %></option>
+                                <% } %>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nome">Prata</label>
-                            <select class="form-control">
-                                <option>Selecione</option>
-                                <option>Brasil</option>
-                                <option>Estados Unidos</option>
-                                <option>Canada</option>
-                                <option>Mexico</option>
-                                <option>Argentina</option>
+                            <select class="form-control" name="prata">
+                                 <% 
+                                for (Pais p : paises) {
+                                %>
+                                
+                                <option value="<%= p.getId() %>"> <%= p.getNome() %></option>
+                                <% } %>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nome">Bronze</label>
-                            <select class="form-control">
-                                <option>Selecione</option>
-                                <option>Brasil</option>
-                                <option>Estados Unidos</option>
-                                <option>Canada</option>
-                                <option>Mexico</option>
-                                <option>Argentina</option>
+                            <select class="form-control" name="bronze">
+                                 <% 
+                                for (Pais p : paises) {
+                                %>
+                                
+                                <option value="<%= p.getId() %>"> <%= p.getNome() %></option>
+                                <% } %>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Criar</button>
@@ -100,24 +108,16 @@ and open the template in the editor.
                             </tr>
                         </thead>
                         <tbody>
+                             <% List<Modalidade> modalidades = mdao.getLista();
+                                for (Modalidade m : modalidades) {
+                                %>
                             <tr>
-                                <td>Nataçao</td>
-                                <td>Brasil</td>
-                                <td>Estados Unidos</td>
-                                <td>Mexico</td>
+                                <td><%= m.getNome()%></td>
+                                <td><%= dao.bucaPorId(m.getOuro()).getNome() %></td>
+                                <td><%= dao.bucaPorId(m.getPrata()).getNome() %></td>
+                                <td><%= dao.bucaPorId(m.getBronze()).getNome() %></td>
                             </tr>
-                            <tr>
-                                <td>Futebol</td>
-                                <td>Brasil</td>
-                                <td>Argetina</td>
-                                <td>Estado Unidos</td>
-                            </tr>
-                            <tr>
-                                <td>Basquete</td>
-                                <td>Estados Unidos</td>
-                                <td>Argetina</td>
-                                <td>Brasil</td>
-                            </tr>
+                            <% } %>
                         </tbody>
                             
                     </table>

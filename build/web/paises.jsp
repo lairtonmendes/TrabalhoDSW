@@ -1,5 +1,5 @@
 <%@page import="br.estacio.jdbc.PaisDAO"%>
-<%@page import="DOMAIN.Pais"%>
+<%@page import="br.estacio.domain.Pais"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <!--
@@ -80,7 +80,7 @@ and open the template in the editor.
                                 <td><%= p.getId()%></td>
                                 <td><%= p.getNome()%></td>
 
-                                <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                <td><button class="btn btn-success btn-xs   ">Editar</button></td>
                                 <form action="removePais?id=<%= p.getId()%>" method="post">
                             
                                     <td><button class="btn btn-danger btn-xs">Excluir</button></td>

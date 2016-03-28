@@ -1,7 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.estacio.jdbc;
 
-import java.sql.Connection;
+import br.estacio.domain.Modalidade;
 import br.estacio.domain.Pais;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,93 +17,74 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
-public class PaisDAO {
-
+/**
+ * 
+ * @author Sammy Guergachi <sguergachi at gmail.com>
+ */
+public class ModalidadeDAO {
     private Connection connection;
 
-    public PaisDAO() throws ClassNotFoundException {
+    public ModalidadeDAO() throws ClassNotFoundException {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public void adiciona(Pais p) {
-        String sql = "INSERT INTO country (nome) values(?);";
+    public void adiciona(Modalidade m) {
+        String sql = "INSERT INTO modalidades (nome, medalha_ouro, medalha_prata, medalha_bronze) values(?,?,?,?);";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            stmt.setString(1, p.getNome());
+            stmt.setString(1, m.getNome());
+            stmt.setInt(2, m.getOuro());
+            stmt.setInt(3, m.getPrata());
+            stmt.setInt(4, m.getBronze());
             stmt.execute();
             stmt.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(PaisDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            
         }
     }
-    
 
     // retorna uma lista
-    public List<Pais> getLista() {
-        List<Pais> paises = new ArrayList<Pais>();
+    public List<Modalidade> getLista() {
+        List<Modalidade> modalidades = new ArrayList<Modalidade>();
 
         PreparedStatement stmt;
         try {
-            stmt = this.connection.prepareStatement("SELECT * FROM country");
+            stmt = this.connection.prepareStatement("SELECT * FROM modalidades");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome");
+                int ouro = rs.getInt("medalha_ouro");
+                int prata = rs.getInt("medalha_prata");
+                int bronze = rs.getInt("medalha_bronze");
 
-                Pais p = new Pais(id, nome);
+                Modalidade m = new Modalidade(id, nome, ouro, prata, bronze);
 
-                paises.add(p);
+                modalidades.add(m);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PaisDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            
         }
 
-        return paises;
+        return modalidades;
     }
 
-    //Buscar por id
-    public Pais bucaPorId(int chave) {
-
-        Pais p = null;
-        PreparedStatement stmt;
-        try {
-            stmt = this.connection.prepareStatement("SELECT * FROM country WHERE id = ?");
-            stmt.setInt(1, chave);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-
-                p = new Pais(id, nome);
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PaisDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            
-        }
-
-        return p;
-    }
     //Alterar
-    public void altera(Pais p) {
-        String sql = "UPDATE country set nome=? where id=?";
+    public void altera(Modalidade m) {
+        String sql = "UPDATE modalidades set nome=?, medalha_ouro=?, medalha_prata=?, medalha_bronze=? where id=?";
         PreparedStatement stmt;
 
         try {
             stmt = this.connection.prepareStatement(sql);
-            stmt.setString(1, p.getNome());
-            stmt.setInt(2, p.getId());
+            stmt.setString(1, m.getNome());
+            stmt.setInt(2, m.getOuro());
+            stmt.setInt(3, m.getPrata());
+            stmt.setInt(4, m.getBronze());
+            stmt.setInt(5, m.getId());
+            
             stmt.execute();
             stmt.close();
         } catch (SQLException ex) {
@@ -106,11 +94,11 @@ public class PaisDAO {
     }
 
     //remove
-    public void remove(Pais p) {
+    public void remove(Modalidade m) {
         try {
             PreparedStatement stmt = connection
-                    .prepareStatement("delete from country where id=?");
-            stmt.setInt(1, p.getId());
+                    .prepareStatement("delete from modalidades where id=?");
+            stmt.setInt(1, m.getId());
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {
@@ -120,7 +108,7 @@ public class PaisDAO {
     public void remove(int i) {
         try {
             PreparedStatement stmt = connection
-                    .prepareStatement("delete from country where id=?");
+                    .prepareStatement("delete from modalidades where id=?");
             stmt.setInt(1, i);
             stmt.execute();
             stmt.close();
