@@ -24,7 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RemovePais", urlPatterns = {"/removePais"})
 public class RemovePais extends HttpServlet {
 
-    protected void service(HttpServletRequest request, HttpServletResponse response)
+  
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
@@ -33,12 +34,16 @@ public class RemovePais extends HttpServlet {
         try {
             dao = new PaisDAO();
             dao.remove(id);
-
+            
             response.sendRedirect("paises.jsp");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RemovePais.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect("paises.jsp");
     }
 
 }

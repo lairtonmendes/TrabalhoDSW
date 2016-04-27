@@ -62,6 +62,38 @@ public class PaisDAO {
 
         return paises;
     }
+    
+    public List<Pais> quadroDeMedalha() {
+        List<Pais> paises = new ArrayList<Pais>();
+
+        PreparedStatement stmt;
+        try {
+            stmt = this.connection.prepareStatement("select c.id, c.nome, COALESCE(mo.count,0) as ouro, COALESCE(mp.count,0) as prata, COALESCE(mb.count,0) as bronze from country c \n" +
+"	LEFT JOIN (select medalha_ouro, count(medalha_ouro) from modalidades group by medalha_ouro) mo ON mo.medalha_ouro = c.id \n" +
+"	LEFT JOIN (select medalha_prata, count(medalha_prata) from modalidades group by medalha_prata) mp ON mp.medalha_prata = c.id \n" +
+"	LEFT JOIN (select medalha_bronze, count(medalha_bronze) from modalidades group by medalha_bronze) mb ON mb.medalha_bronze = c.id\n" +
+"		order by ouro desc, prata desc, bronze desc");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                int qtdOuro = rs.getInt("ouro");
+                int qtdPrata = rs.getInt("prata");
+                int qtdBronze = rs.getInt("bronze");
+                System.out.println(qtdOuro +" aqui");
+
+                Pais p = new Pais(id, nome, qtdOuro, qtdPrata, qtdBronze);
+
+                paises.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaisDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            
+        }
+
+        return paises;
+    }
 
     //Buscar por id
     public Pais bucaPorId(int chave) {
@@ -119,10 +151,13 @@ public class PaisDAO {
     }
     public void remove(int i) {
         try {
-            PreparedStatement stmt = connection
+            PreparedStatement stmt;
+            
+            stmt = connection
                     .prepareStatement("delete from country where id=?");
             stmt.setInt(1, i);
             stmt.execute();
+            
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);

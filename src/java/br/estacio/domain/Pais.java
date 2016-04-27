@@ -12,11 +12,46 @@ package br.estacio.domain;
 public class Pais {
     private int id;
     private String nome;
+    private int qtdOuro;
+    private int qtdPrata;
+    private int qtdBronze;
+    
     
     
     public Pais(int id, String nome){
         this.id = id;
         this.nome = nome;
+    }
+    public Pais(int id, String nome,int qtdOuro, int qtdPrata, int qtdBronze ){
+        this.id = id;
+        this.nome = nome;
+        this.qtdOuro = qtdOuro;
+        this.qtdPrata = qtdPrata;
+        this.qtdBronze = qtdBronze;
+    }
+
+    public int getQtdOuro() {
+        return qtdOuro;
+    }
+
+    public void setQtdOuro(int qtdOuro) {
+        this.qtdOuro = qtdOuro;
+    }
+
+    public int getQtdPrata() {
+        return qtdPrata;
+    }
+
+    public void setQtdPrata(int qtdPrata) {
+        this.qtdPrata = qtdPrata;
+    }
+
+    public int getQtdBronze() {
+        return qtdBronze;
+    }
+
+    public void setQtdBronze(int qtdBronze) {
+        this.qtdBronze = qtdBronze;
     }
     public Pais(String nome){
         this.nome = nome;

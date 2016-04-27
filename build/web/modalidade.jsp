@@ -40,7 +40,7 @@ and open the template in the editor.
                         <li ><a href="index.jsp">Inicio </a></li>
                         <li><a href="paises.jsp">Paises</a></li>
                         <li class="active"><a href="modalidade.jsp">Modalidades</a></li>
-                        <li><a href="medalha.jsp">Medalhas</a></li>
+                        <li><a href="quadrodemedalhas.jsp">Medalhas</a></li>
 
                     </ul>
 
@@ -51,7 +51,7 @@ and open the template in the editor.
             <div class="panel panel-default ">
                 <div class="panel-heading">Cadastro de Modalidade</div>
                 <div class="panel-body">
-                    <form class="form-inline" action="adicionaModalidade">
+                    <form class="form-inline" action="adicionaModalidade" method="post">
                         <div class="form-group">
                             <label for="nome">Modalidade</label>
                             <input type="text" class="form-control" name="nome"placeholder="Modalidade Esportiva">

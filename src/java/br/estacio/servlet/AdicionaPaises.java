@@ -36,7 +36,7 @@ public class AdicionaPaises extends HttpServlet {
         log("Destruindo a servlet");
     }
 
-    protected void service(HttpServletRequest request, HttpServletResponse response)
+     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String nome = request.getParameter("nome");
@@ -49,7 +49,8 @@ public class AdicionaPaises extends HttpServlet {
             response.sendRedirect("paises.jsp");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AdicionaPaises.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        } 
+     }
+    
 
 }

@@ -35,7 +35,7 @@ and open the template in the editor.
                         <li class=""><a href="index.jsp">Inicio </a></li>
                         <li class="active"><a href="paises.jsp">Paises</a></li>
                         <li><a href="modalidade.jsp">Modalidades</a></li>
-                        <li><a href="medalha.jsp">Medalhas</a></li>
+                        <li><a href="quadrodemedalhas.jsp">Medalhas</a></li>
 
                     </ul>
 
@@ -46,7 +46,7 @@ and open the template in the editor.
             <div class="panel panel-default ">
                 <div class="panel-heading">Cadastro de País</div>
                 <div class="panel-body">
-                    <form class="form-inline" action="adicionaPaises">
+                    <form class="form-inline" action="adicionaPaises" method="post">
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="pais" placeholder="Nome do País" name="nome">
