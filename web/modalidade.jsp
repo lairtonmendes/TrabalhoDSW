@@ -8,10 +8,13 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
+-->
 <% PaisDAO dao = new PaisDAO(); 
    ModalidadeDAO mdao = new ModalidadeDAO();
 %>
--->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -58,34 +61,37 @@ and open the template in the editor.
                         </div>
                         <div class="form-group">
                             <label for="nome">Ouro</label>
-                            <select class="form-control" name="ouro">
-                                 <% List<Pais> paises = dao.getLista();
-                                for (Pais p : paises) {
+                            <select class="form-control" name="ouro" id="select_m_ouro">
+                                 <option disabled selected value> Selecione um pais </option>
+                                <% List<Pais> paises = dao.getLista();
+                                    for (Pais p : paises) {
                                 %>
                                 
-                                <option value="<%= p.getId() %>"> <%= p.getNome() %></option>
+                                <option value="<%= p.getId() %>" id="ouro_<%= p.getId() %>"> <%= p.getNome() %></option>
                                 <% } %>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nome">Prata</label>
-                            <select class="form-control" name="prata">
-                                 <% 
-                                for (Pais p : paises) {
+                            <select class="form-control" name="prata" id="select_m_prata">
+                                 <option disabled selected value> Selecione um pais </option>
+                                <% 
+                                    for (Pais p : paises) {
                                 %>
                                 
-                                <option value="<%= p.getId() %>"> <%= p.getNome() %></option>
+                                <option value="<%= p.getId() %>" id="prata_<%= p.getId() %>"> <%= p.getNome() %></option>
                                 <% } %>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nome">Bronze</label>
-                            <select class="form-control" name="bronze">
-                                 <% 
-                                for (Pais p : paises) {
+                            <select class="form-control" name="bronze" id="select_m_bronze">
+                                <option disabled selected value> Selecione um pais </option> 
+                                <% 
+                                    for (Pais p : paises) {
                                 %>
                                 
-                                <option value="<%= p.getId() %>"> <%= p.getNome() %></option>
+                                <option value="<%= p.getId() %>" id="bronze_<%= p.getId() %>"> <%= p.getNome() %></option>
                                 <% } %>
                             </select>
                         </div>
@@ -124,4 +130,33 @@ and open the template in the editor.
                 </div>
             </div>
     </body>
+    <script>
+    var ouro_current;
+    $('#select_m_ouro').change(function(){
+       $('#prata_'+ouro_current).removeAttr( 'style' );
+       $('#bronze_'+ouro_current).removeAttr( 'style' );
+       id = $('#select_m_ouro').val()
+       ouro_current = id
+       $('#prata_'+id).hide()
+       $('#bronze_'+id).hide()
+    });
+    var prata_current;
+    $('#select_m_prata').change(function(){
+       $('#ouro_'+prata_current).removeAttr( 'style' );
+       $('#bronze_'+prata_current).removeAttr( 'style' );
+       id = $('#select_m_prata').val()
+       prata_current = id
+       $('#ouro_'+id).hide()
+       $('#bronze_'+id).hide()
+    });
+    var bronze_current;
+    $('#select_m_bronze').change(function(){
+       $('#prata_'+bronze_current).removeAttr( 'style' );
+       $('#ouro_'+bronze_current).removeAttr( 'style' );
+       id = $('#select_m_bronze').val()
+       bronze_current = id
+       $('#prata_'+id).hide()
+       $('#ouro_'+id).hide()
+    });
+</script>
 </html>
