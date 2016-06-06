@@ -16,6 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -109,8 +112,28 @@ public class Filtro implements Filter {
         
         Throwable problem = null;
         try {
-            System.out.println("passou pelo filtro");
-            chain.doFilter(request, response);
+	  HttpServletRequest res = (HttpServletRequest)request;
+          Cookie[] cookies = res.getCookies();
+	  System.out.println("aqui");
+	  System.out.println(cookies);
+	  boolean logado = false;
+	  for (int i = 0; i < cookies.length; i++) {
+	    String name = cookies[i].getName();
+	    String value = cookies[i].getValue();
+	    
+	    if(name.equals("login")){
+	      logado = true;
+	    }
+	    System.err.println("Nome: "+name+" - Value: "+value);
+	  }
+	  if(logado){
+	    chain.doFilter(request, response);
+	  }else{
+	    HttpServletResponse resp = (HttpServletResponse) response;
+	    resp.sendRedirect("index.jsp");
+	  }
+	  
+            
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then

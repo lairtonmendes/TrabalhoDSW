@@ -13,12 +13,13 @@ import br.estacio.domain.Pais;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Teste {
-    public static void main (String []args){
-        Pais p = new Pais("EUA");
-        PaisDAO dao = new PaisDAO();
+    public static void main (String []args) throws ClassNotFoundException{
+      
+        UsuarioDAO dao = new UsuarioDAO();
+        dao.login("adminn", "admin");
+	
+	
         
-        dao.adiciona(p);
-       System.out.println(dao.getLista());
     }
 
 }

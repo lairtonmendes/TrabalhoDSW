@@ -5,47 +5,97 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/trabalhodsw.css">
-    </head>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/trabalhodsw.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  </head>
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Quadro de Medalha</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
-                        <li><a href="paises.jsp">Paises</a></li>
-                        <li><a href="modalidade.jsp">Modalidades</a></li>
-                        <li><a href="medalha.jsp">Medalhas</a></li>
-
-                    </ul>
-
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-        <div class="container-fluid">
-            <div class="panel panel-default ">
-                <div class="panel-heading">Panel heading without title</div>
-                <div class="panel-body">
-                    aqui
-                </div>
-            </div>
-        </div>
+      <div style="width: 400px; height:400px; position:absolute;left:50%; margin-left:-200px; top:50%; margin-top:-200px ">
+	<div class="container-fluid">
+	  <div class="panel panel-default " style="margin-top">
+	    <div class="panel-heading">Favor faça login</div>
+	    <div class="panel-body">
+	      <form>
+		<div class="form-group">
+		  <label for="nome">Usuario:</label>
+		  <input type="text" class="form-control" name="usuario" placeholder="Informe o Usuario">
+		</div>
+		<div class="form-group">
+		  <label for="nome">Senha:</label>
+		  <input type="password" class="form-control" name="senha" placeholder="Informe a Senha">
+		</div>
+		<div style="color: red" id="erro-login"> </div>
+		<div class="pull-right">
+		  <input id="btn" type="button" value="Logar" class="btn btn-primary ">
+		</div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <script>
+	$("#btn").click(function(){
+	  var usuario = $("input[name='usuario']").val();
+	  var senha = $("input[name='senha']").val();
+	  var erro = $("#erro-login");
+	  if(usuario.length==0 ){
+	    erro.html("Preencha o campo usuario!");
+	  }else if(senha.length <8){
+	    erro.html("Senha deve ser maior de 8 digitos!");
+	  }else if(hasUpCase(senha) || hasDownCase(senha) || hasNumber(senha)){
+	    erro.html("Senha deve ser pelo menos: 1 letra minúscula, 1 letra maiúscula e 1 dígito");
+	  }else{
+	    $.post("logar",
+	      {
+		  "usuario": usuario,
+		  "senha": senha
+	      },
+	      function(data, status){
+		var a = JSON.parse(data);
+		if(a.login === 'true'){
+		  window.location.href = 'paises.jsp'
+		}else{
+		  erro.html("Usuario ou Senha invalida!");
+		}
+	      });
+	    }
+	  });
+	function hasUpCase(a) {
+	  var r = true ;
+	  for(i = 0; i< a.length; i++){
+	    if(a.charAt(i) === a.charAt(i).toUpperCase() && isNaN(a.charAt(i))){
+	      r = false;
+	    }
+	  }
+	  return r;
+	};
+	function hasDownCase(a) {
+	  var r = true;
+	  for(i = 0; i< a.length; i++){
+	    if(a.charAt(i) === a.charAt(i).toLowerCase() && isNaN(a.charAt(i))){
+	      r = false;
+	    }
+	  }
+	  return r;
+	};
+	function hasNumber(a) {
+	  var r = true;
+	  for(i = 0; i< a.length; i++){
+	    if(isNumber(a.charAt(i))){
+	      r = false;
+	    }
+	  }
+	  return r;
+	};
+	function isNumber(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+	
+      </script>
+       
     </body>
 </html>
